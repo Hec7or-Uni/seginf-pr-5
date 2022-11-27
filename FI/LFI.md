@@ -9,7 +9,7 @@ Sabiendo que el archivo `fi.php` existe, podemos intentar leerlo con la siguient
 http://localhost/DVWA/vulnerabilities/fi/?page=../../hackable/flags/fi.php
 ```
 
-![Path Traversal](FI/assets/primerPaso.png)
+![Path Traversal](https://github.com/Hec7or-Uni/seginf-pr-5/blob/main/FI/assets/primerPaso.png)
 Como se puede observar en la imágen, el archivo `fi.php` es leído y mostrado en la página aunque no hemos conseguido leer las 5 citas que contiene.
 
 Para intetar leer el archivo completo, podemos intentar ejecutar commandos en el servidor, para ello nos ayudaremos de Burp Suite, que nos permitirá modificar la petición que se envía al servidor.
@@ -28,11 +28,11 @@ una vez interceptada la petición, podemos modificarla para que se envíe un com
 <?php echo shell_exec($_GET['cmd']); ?>
 ```
 
-![intercept](FI/assets/intercept.png)
+![intercept](https://github.com/Hec7or-Uni/seginf-pr-5/blob/main/FI/assets/intercept.png)
 
 como podemos observar en la imágen, el servidor nos devuelve la información del usuario que está ejecutando el servidor web.
 
-![forward](FI/assets/forward.png)
+![forward](https://github.com/Hec7or-Uni/seginf-pr-5/blob/main/FI/assets/forward.png)
 
 Una vez comprobado podemos ejecutar comandos en el servidor, podemos intentar leer el archivo `fi.php` de la misma manera:
 
@@ -40,7 +40,7 @@ Una vez comprobado podemos ejecutar comandos en el servidor, podemos intentar le
 http://localhost/DVWA/vulnerabilities/fi/?page=php://input&cmd=cat%20/var/www/html/DVWA/hackable/flags/fi.php
 ```
 
-![challenge](FI/assets/challenge.png)
+![challenge](https://github.com/Hec7or-Uni/seginf-pr-5/blob/main/FI/assets/challenge.png)
 
 ## Medio
 

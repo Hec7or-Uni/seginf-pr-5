@@ -40,7 +40,7 @@ Una vez mejorada la TTY, podemos intentar leer el archivo `fi.php` utilizando ca
 cat DVWA/hackable/flags/fi.php
 ```
 
-![rfi](FI/assets/rfi.png)
+![rfi](https://github.com/Hec7or-Uni/seginf-pr-5/blob/main/FI/assets/rfi.png)
 
 ## Medio
 

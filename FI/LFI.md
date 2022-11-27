@@ -47,9 +47,3 @@ http://localhost/DVWA/vulnerabilities/fi/?page=php://input&cmd=cat%20/var/www/ht
 ## Alto
 
 ## Imposible
-
-
-## referencias
-
-- [PayloadsAllTheThings](https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/File%20Inclusion)
-- [HTB Academy](https://academy.hackthebox.com/module/77/section/725)

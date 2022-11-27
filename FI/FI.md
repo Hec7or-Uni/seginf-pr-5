@@ -79,3 +79,9 @@ if( $file != "include.php" && $file != "file1.php" && $file != "file2.php" && $f
 ```
 
 ### vulnerability check
+
+
+## Referencias
+
+- [PayloadsAllTheThings](https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/File%20Inclusion)
+- [HTB Academy](https://academy.hackthebox.com/module/77/section/725)

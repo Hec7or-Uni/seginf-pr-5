@@ -41,6 +41,21 @@ En la siguiente imagen podemos observar como hemos obtenido una shell interactiv
 
 ## Medio
 
+Al contrario que en el nivel bajo, en este nivel el servidor web solo permite subir archivos de tipo `jpeg` o `png`, por lo que no podemos replicar la mecanica del nivel anterior.
+
+![error](https://github.com/Hec7or-Uni/seginf-pr-5/blob/main/FU/assets/error.png)
+
+Para poder subir la shell, debemos cambiar el tipo de archivo a `jpeg` o `png` y para ello podemos utilizar Burp Suite para interceptar la petición y modificar la cabecera `Content-Type` de la petición para que sea `image/jpeg` o `image/png`.
+
+![intercept](https://github.com/Hec7or-Uni/seginf-pr-5/blob/main/FU/assets/intercept.png)
+
+ Una vez interceptada la petición y modificada la cabecera, podemos enviar la petición y comprobar que se ha subido correctamente.
+
+![intercept](https://github.com/Hec7or-Uni/seginf-pr-5/blob/main/FU/assets/intercept.png)
+
+Al igual que en el nivel anterior, podemos observar como se ha obtenido una shell interactiva y hemos podido ejecutar el comando `id` para comprobar que somos el usuario `www-data`.
+![challenge-1](https://github.com/Hec7or-Uni/seginf-pr-5/blob/main/FU/assets/challenge-1.png)
+
 ## Alto
 
 ## Imposible

@@ -82,5 +82,3 @@ http://localhost/DVWA/vulnerabilities/fi/?page=file:///var/www/html/DVWA/hackabl
 ```
 
 ![challenge-3](https://github.com/Hec7or-Uni/seginf-pr-5/blob/main/FI/assets/challenge-3.png)
-
-## Imposible

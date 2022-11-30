@@ -61,5 +61,3 @@ http://localhost/DVWA/vulnerabilities/fi/?page=Http://localhost/php-reverse-shel
 Como se puede ver, se ha vuelto a visualizar el archivo `fi.php` de donde extraemos todas las citas.
 
 ## Alto
-
-## Imposible

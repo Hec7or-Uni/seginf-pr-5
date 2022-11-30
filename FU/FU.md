@@ -57,5 +57,3 @@ Al igual que en el nivel anterior, podemos observar como se ha obtenido una shel
 ![challenge-1](https://github.com/Hec7or-Uni/seginf-pr-5/blob/main/FU/assets/challenge-1.png)
 
 ## Alto
-
-## Imposible

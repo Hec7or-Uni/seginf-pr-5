@@ -15,12 +15,15 @@ El objetivo es conseguir leer el contenido de un fichero (el fichero almacenado 
 ## File Upload
 El objetivo es conseguir ejecutar una cualquier función PHP de elección. 
 
-## Insecure CAPTCHA El objetivo es cambiar la contrase~na del administrador de forma automatizada.
+## Insecure CAPTCHA 
+El objetivo es cambiar la contrase~na del administrador de forma automatizada.
 
-## SQLi. El objetivo es robar las contrase~nas de todos los usuarios del DBMS.
+## SQLi. 
+El objetivo es robar las contrase~nas de todos los usuarios del DBMS.
 SQLi blind. El objetivo es encontrar la versión del servidor DBMS.
 
-## Weak Session IDs El objetivo es averiguar cómo la aplicación genera las cookies de
+## Weak Session IDs 
+El objetivo es averiguar cómo la aplicación genera las cookies de
 sesión y luego inferir las cookies de sesión de los otros usuarios de la aplicación.
 
 ## XSS (DOM) El objetivo es conseguir robar la cookie de sesión de un usuario (que haya

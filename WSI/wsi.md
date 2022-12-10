@@ -4,29 +4,37 @@ La vulnerabilidad Weak Session Id se produce cuando el servidor no genera un ide
 
 ## Bajo
 
-Tras ejecutar 5 peticiones POST mediante el botón de "Generate" de la página, se observa que el identificador de sesión es monotono y se creciente. Por lo que se puede asegurar que depués de la petición 5 el identificador de la siguiente sesión será 6.
+Tras ejecutar 5 peticiones POST mediante el botón de "Generate" de la página, se observa que el identificador de sesión es monótono y se creciente, por lo que se puede intuir que el siguiente identificador de sesión será el 6.
 
-![5 peticiones](https://github.com/Hec7or-Uni/seginf-pr-5/blob/main/WSI/assets/requests-1.png)
+![5 peticiones](/WSI/assets/requests-low.png)
 
 | #    | dvwaSession |
 | ---: |    :---:    |
-|  50  |      1      | 
-|  51  |      2      | 
-|  52  |      3      | 
-|  53  |      4      | 
-|  54  |      5      |  
+|  50  |      1      |
+|  51  |      2      |
+|  52  |      3      |
+|  53  |      4      |
+|  54  |      5      |
+
+
+### Código vulnerable
+
+```php
+ $_SESSION['last_session_id']++; 
+```
 
 ## Medio
 
-Para analizar como esta funcionando la generación de identificadores de sesión, se ha realizado un análisis a través de Burp Suite.
-Para empezar, se ha realizado una petición POST mediante el boton `generate` de la página y se ha analizado la respuesta del servidor.
+Para analizar como está funcionando la generación de identificadores de sesión, se ha realizado un análisis a través de Burp Suite.
+
+Para empezar, se ha realizado una petición POST mediante el botón `generate` de la página y se ha analizado la respuesta del servidor.
 A continuación, como no se puede sacar ninguna conclusión de un único valor, se ha usado el secuenciador de Burp Suit para generar 100 peticiones POST y analizar las respuestas del servidor. 
 
-![secuenciador](https://github.com/Hec7or-Uni/seginf-pr-5/blob/main/WSI/assets/secuencer.png)
+![secuenciador](/WSI/assets/sequencer-mid.png)
 
 Trás analizar los resultados se ha podido observas que cada segundo incrementa en 1 el identificador de sesión además el identificador de sesión se parece a un timestamp.
 
-|   #  | dvwaSession | Time GMT  |
+|   #  | dvwaSession | [Time GMT]  |
 | ---: |    :---:    | ------ |
 | 0    | 1669840379  | Wednesday, 30 November 2022 20:32:59| 
 | 1    | 1669840379  |        | 
@@ -39,15 +47,21 @@ Trás analizar los resultados se ha podido observas que cada segundo incrementa 
 | 8    | 1669840383  | Wednesday, 30 November 2022 20:33:03| 
 | 9    | 1669840383  |        | 
 
+### Código vulnerable
+
+```php
+$cookie_value = time(); 
+```
+
 ## Alto
 
-En este nivel, las cookies se ven asi: `eccbc87e4b5ce2fe28308fd9f2a7baf3`Aquí hay una muestra de las fichas. Parecen hashes md5.
+En este nivel, las cookies se ven así: `eccbc87e4b5ce2fe28308fd9f2a7baf3` lo que parece ser un hash md5.
 
 Al igual que en el nivel medio, comenzamos recuperando una lista de IDs de sesión, para ello usamos el secuenciador de Burp Suite para generar varias peticiones POST y analizar las respuestas del servidor. 
 
-![historial](https://github.com/Hec7or-Uni/seginf-pr-5/blob/main/WSI/assets/history.png)
+![historial](/WSI/assets/history-high.png)
 
-![secuenciador-2](https://github.com/Hec7or-Uni/seginf-pr-5/blob/main/WSI/assets/secuencer-2.png)
+![secuenciador-2](/WSI/assets/sequencer-high.png)
 
 Tras guardar los resultados, se ha utilizado hashcat para descifrar los hashes md5 y como se ha podido comprobar, los hashes siguen un patrón ascendente.
 
@@ -68,21 +82,15 @@ d3d9446802a44259755d38e6d163e820:10
 c20ad4d76fe97759aa27a0c99bff6710:12
 ```
 
-Como se puede ver en el código del servidor, el valor de la cookie es `md5($_SESSION['last_session_id_high']);` como habiamos predicho.
+### Código vulnerable
+
+Como se puede ver en el código del servidor, el valor de la cookie es `md5($_SESSION['last_session_id_high']++;)` como habiamos predicho.
 
 ```php
-<?php
-
-$html = "";
-
-if ($_SERVER['REQUEST_METHOD'] == "POST") {
-    if (!isset ($_SESSION['last_session_id_high'])) {
-        $_SESSION['last_session_id_high'] = 0;
-    }
-    $_SESSION['last_session_id_high']++;
-    $cookie_value = md5($_SESSION['last_session_id_high']);
-    setcookie("dvwaSession", $cookie_value, time()+3600, "/vulnerabilities/weak_id/", $_SERVER['HTTP_HOST'], false, false);
-}
-
-?> 
+$_SESSION['last_session_id_high']++;
+$cookie_value = md5($_SESSION['last_session_id_high']); 
 ```
+
+## Referencias
+
+- [epochconverter](https://www.epochconverter.com/) Conversor de marcas de tiempo unix para desarrolladores.

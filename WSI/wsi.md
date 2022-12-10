@@ -55,7 +55,7 @@ Tras guardar los resultados, se ha utilizado hashcat para descifrar los hashes m
 
 ```bash
 ┌──(kali㉿kali)-[~/Desktop]
-└─$ hashcat -a 3 -m 0 tokens --increment --show             
+└─$ hashcat -a 3 -m 0 tokens --increment --show
 eccbc87e4b5ce2fe28308fd9f2a7baf3:3
 a87ff679a2f3e71d9181a67b7542122c:4
 e4da3b7fbbce2345d7772b0674a318d5:5

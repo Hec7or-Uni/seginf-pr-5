@@ -25,10 +25,10 @@ Sin embargo, podemos aprovechar que la implementación no es segura y con alguna
 <br>
 **x** es el número de `&` que se deben escribir para que el comando `id` se ejecute.
 
-```bash
 $$
 x = 2n + 3, n\in \mathbb{N}
 $$
+
 ```bash
 127.0.0.1 > /dev/null &&& id
 ```

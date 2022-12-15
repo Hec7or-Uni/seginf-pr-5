@@ -18,10 +18,10 @@ El objetivo es conseguir ejecutar una cualquier función PHP de elección.
 ## Insecure CAPTCHA 
 El objetivo es cambiar la contraseña del administrador de forma automatizada.
 
-## SQLi. 
+## [SQLi](/SQLI/SQLi.md)
 El objetivo es robar las contraseñas de todos los usuarios del DBMS.
 
-## SQLi blind. 
+## [SQLi blind](/SQLI/SQLiblind.md)
 El objetivo es encontrar la versión del servidor DBMS.
 
 ## [Weak Session IDs](/WSI/WSI.md)

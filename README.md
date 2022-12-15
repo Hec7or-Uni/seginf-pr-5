@@ -20,7 +20,9 @@ El objetivo es cambiar la contraseña del administrador de forma automatizada.
 
 ## SQLi. 
 El objetivo es robar las contraseñas de todos los usuarios del DBMS.
-SQLi blind. El objetivo es encontrar la versión del servidor DBMS.
+
+## SQLi blind. 
+El objetivo es encontrar la versión del servidor DBMS.
 
 ## [Weak Session IDs](/WSI/WSI.md)
 El objetivo es averiguar cómo la aplicación genera las cookies de

